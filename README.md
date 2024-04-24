@@ -2,8 +2,7 @@
 
 ![Screen capture of an e-ink display](./images/screen-capture.jpeg)
 
-
-# Features
+## Features
 
 * ESPHome Dashboard on Waveshare E-Paper
 * Displays sensor outputs
@@ -12,7 +11,7 @@
 * Wordclock (german)
 * Fits in IKEA Ribba Picture Frame
 
-# Instructions
+## Instructions
 
 1. Follow [ESPhome](https://esphome.io) documentation
 
@@ -32,12 +31,12 @@
     Copy fonts into ```fonts/``` directory
 
 4. Upload dashboard-epaper.yaml to your ESP32
-   
+
    ```shell
    esphome run dashboard-epaper.yaml
    ```
 
-# Links and Acknowledgements
+## Links and Acknowledgements
 
 * Material Design Icons: <https://github.com/google/material-design-icons/tree/master/font>
 * Material Design Icons: <https://github.com/Templarian/MaterialDesign-Webfont/blob/master/fonts/materialdesignicons-webfont.ttf>
