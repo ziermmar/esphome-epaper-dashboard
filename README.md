@@ -26,11 +26,13 @@
     fallback_password: "your-fallback-wifi-password"
     ```
 
-3. Download Material Design Fonts (links below)
+3. Integrate contents of ```home-assistant-configuration.yaml``` into your Homeassistant ```configuration.yaml```
+
+4. Download Material Design Fonts (links below)
 
     Copy fonts into ```fonts/``` directory
 
-4. Upload dashboard-epaper.yaml to your ESP32
+5. Upload dashboard-epaper.yaml to your ESP32
 
    ```shell
    esphome run dashboard-epaper.yaml
