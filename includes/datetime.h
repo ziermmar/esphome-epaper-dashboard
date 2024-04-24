@@ -17,6 +17,6 @@ int currentYear = haTimestamp.tm_year + 1900;
 const char* currentMonthName = german_months[currentMonth];
 const char* currentWeekdayName = german_days[currentWeekday];
 
-std::string germanTime = std::string(currentWeekdayName) + ", " + std::to_string(currentDay) + ". " + std::string(currentMonthName) + " " + std::to_string(currentYear);
+std::string germanDate = std::string(currentWeekdayName) + ", " + std::to_string(currentDay) + ". " + std::string(currentMonthName) + " " + std::to_string(currentYear);
 
 #endif
