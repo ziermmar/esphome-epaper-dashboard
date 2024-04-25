@@ -51,7 +51,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3.5.3
       - run: |
-          curl -o fonts/materialdesignicons-webfont.ttf https://github.com/Templarian/MaterialDesign-Webfont/raw/master/fonts/materialdesignicons-webfont.ttf
+          curl -o fonts/materialdesignicons-webfont.ttf "https://raw.githubusercontent.com/Templarian/MaterialDesign-Webfont/master/fonts/materialdesignicons-webfont.ttf"
           echo "${{secrets.ESPHOME_SECRETS_YAML}}" >> secrets.yaml
       - uses: esphome/build-action@v1.5.2
         id: esphome-build
@@ -80,8 +80,6 @@ jobs:
       - name: Create single manifest.json
         run: |
           jq -s '{"name": "${{ inputs.name }}", "version": "${{ needs.build.outputs.esphome-version }}", "home_assistant_domain": "esphome", "new_install_skip_erase": false, "builds":.}' output/*/manifest.json > output/${{ inputs.manifest_filename }}
-
-      - run: cp -R static/* output
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4.4.1

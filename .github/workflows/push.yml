@@ -9,3 +9,5 @@ jobs:
     with:
       files: dashboard-epaper.yaml
     secrets: inherit
+    permissions:
+      contents: write
