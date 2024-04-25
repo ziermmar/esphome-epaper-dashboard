@@ -1,0 +1,9 @@
+{
+  "chipFamily": "ESP32",
+  "parts": [
+    {
+      "path": "dashboard-epaper-esp32/dashboard-epaper-esp32.bin",
+      "offset": 0
+    }
+  ]
+}
