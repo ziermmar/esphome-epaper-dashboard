@@ -1,0 +1,11 @@
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  call-workflow-passing-data:
+    uses: ziermmar/esphome-epaper-dashboard/.github/workflows/github-actions-publish.yml@main
+    with:
+      files: dashboard-epaper.yaml
+    secrets: inherit
