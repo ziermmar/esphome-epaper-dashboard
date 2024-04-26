@@ -6,7 +6,7 @@
       {
 
         //Date and Time
-        it.printf(400, 10,     id(small),  TextAlign::CENTER_HORIZONTAL, germanDate.c_str());
+        it.printf(400, 10,     id(small),  TextAlign::CENTER_HORIZONTAL, "%s", getGermanDate().c_str());
         //it.strftime(400, 30, id(big),    TextAlign::CENTER_HORIZONTAL, "%H:%M", id(homeassistant_time).now());
         it.printf(400,60,      id(medium), TextAlign::CENTER_HORIZONTAL, "%s", getTimeInWords().c_str());
 

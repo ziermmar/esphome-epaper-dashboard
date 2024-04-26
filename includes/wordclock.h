@@ -8,7 +8,6 @@ std::string getTimeInWords() {
     int hour = timePtr->tm_hour;
     int minute = timePtr->tm_min;
 
-
     std::string hours[] = {"Eins", "Eins", "Zwei", "Drei", "Vier", "Fünf", "Sechs", "Sieben", "Acht", "Neun", "Zehn", "Elf", "Zwölf"};
     std::string timeInWords;
 
