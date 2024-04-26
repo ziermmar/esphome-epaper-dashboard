@@ -1,4 +1,5 @@
 # ESPhome E-Ink Dashboard
+
 [![Build and Publish ESPHome firmware](https://github.com/ziermmar/esphome-epaper-dashboard/actions/workflows/github-actions-publish.yml/badge.svg?event=push)](https://github.com/ziermmar/esphome-epaper-dashboard/actions/workflows/github-actions-publish.yml)
 
 ![Screen capture of an e-ink display](./images/screen-capture.jpeg)
