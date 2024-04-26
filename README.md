@@ -1,4 +1,5 @@
 # ESPhome E-Ink Dashboard
+[![Build and Publish ESPHome firmware](https://github.com/ziermmar/esphome-epaper-dashboard/actions/workflows/github-actions-publish.yml/badge.svg?event=push)](https://github.com/ziermmar/esphome-epaper-dashboard/actions/workflows/github-actions-publish.yml)
 
 ![Screen capture of an e-ink display](./images/screen-capture.jpeg)
 
@@ -10,6 +11,18 @@
 * Ability to translate sensor output (example in german)
 * Wordclock (german)
 * Fits in IKEA Ribba Picture Frame
+
+## Hardware
+
+*(Amazon.de Affiliate links)*
+
+* [Waveshare 7.5 inch E-Ink Display with ESP32 driver board](https://amzn.to/3JBRzas) 72 €
+* [Logilink Flat USB Power supply](https://amzn.to/3JD4Gbe) 8 €
+* [4.5 m micro USB cable](https://amzn.to/44jEufC) 9 €
+
+## Download
+
+A prebuilt binary for the hardware listed above can be downloaded from github.com: [dashboard-epaper-esp32.bin](https://ziermmar.github.io/esphome-epaper-dashboard/dashboard-epaper-esp32/dashboard-epaper-esp32.bin)
 
 ## Instructions
 
@@ -45,3 +58,4 @@
 * Lookup UTF IDs in MDI Font: <https://pictogrammers.com/library/mdi/>
 * Inspired by this Project: <https://github.com/Madelena/esphome-weatherman-dashboard>
 * Inspired by this Project: <https://github.com/techdregs/E-Paper-DashBoard>
+* Semantic git commit messages: <https://www.conventionalcommits.org/en/v1.0.0/#summary>
