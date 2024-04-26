@@ -1,3 +1,5 @@
+name: Build and Publish ESPHome firmware
+
 on:
   push:
     branches:
