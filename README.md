@@ -1,6 +1,6 @@
 # ESPhome E-Ink Dashboard
 
-[![Build and Publish ESPHome firmware](https://github.com/ziermmar/esphome-epaper-dashboard/actions/workflows/github-actions-publish.yml/badge.svg?event=push)](https://github.com/ziermmar/esphome-epaper-dashboard/actions/workflows/github-actions-publish.yml)
+[![Build and Publish ESPHome firmware](https://github.com/ziermmar/esphome-epaper-dashboard/actions/workflows/push.yml/badge.svg)](https://github.com/ziermmar/esphome-epaper-dashboard/actions/workflows/push.yml)
 
 ![Screen capture of an e-ink display](./images/screen-capture.jpeg)
 
@@ -15,11 +15,11 @@
 
 ## Hardware
 
-*(Amazon.de Affiliate links)*
-
 * [Waveshare 7.5 inch E-Ink Display with ESP32 driver board](https://amzn.to/3JBRzas) 72 €
 * [Logilink Flat USB Power supply](https://amzn.to/3JD4Gbe) 8 €
 * [4.5 m micro USB cable](https://amzn.to/44jEufC) 9 €
+
+  *(Amazon.de Affiliate links)*
 
 ## Download
 
