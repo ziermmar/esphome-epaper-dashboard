@@ -59,4 +59,5 @@ A prebuilt binary for the hardware listed above can be downloaded from github.co
 * Lookup UTF IDs in MDI Font: <https://pictogrammers.com/library/mdi/>
 * Inspired by this Project: <https://github.com/Madelena/esphome-weatherman-dashboard>
 * Inspired by this Project: <https://github.com/techdregs/E-Paper-DashBoard>
+* Inspired by this Project: <https://github.com/paviro/ESPHome-ePaper-Calendar>
 * Semantic git commit messages: <https://www.conventionalcommits.org/en/v1.0.0/#summary>
