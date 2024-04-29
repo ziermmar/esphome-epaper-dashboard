@@ -2,7 +2,7 @@
 
 [![Build and Publish ESPHome firmware](https://github.com/ziermmar/esphome-epaper-dashboard/actions/workflows/push.yml/badge.svg)](https://github.com/ziermmar/esphome-epaper-dashboard/actions/workflows/push.yml)
 
-![Screen capture of an e-ink display](./images/screen-capture.jpeg)
+![Screen capture of an e-ink display](https://raw.githubusercontent.com/ziermmar/esphome-epaper-dashboard/main/images/screen-capture.jpeg)
 
 ## Features
 
