@@ -7,6 +7,7 @@ esphome:
     - includes/wordclock.h
     - includes/datetime.h
   on_boot:
+    priority: 200
     then:
       - switch.turn_on: display_power
       - component.update: screen
@@ -124,6 +125,10 @@ sensor:
     id: temp_d3
     entity_id: sensor.temperature_forecast_d3
 
+  - platform: homeassistant
+    id: zero_sensor
+    entity_id: sensor.zero_sensor
+
 text_sensor:
   - platform: homeassistant
     id: weather_now
@@ -160,9 +165,14 @@ graph:
       height: 80
       border: True
       traces:
+        - sensor: zero_sensor
+          line_thickness: 1
+          continuous: True
+          line_type: SOLID
         - sensor: power_comsumption
           line_thickness: 1
           continuous: True
+          line_type: DOTTED
         - sensor: solar_power
           line_thickness: 1
           line_type: DASHED
