@@ -45,23 +45,25 @@
 
         if (!isnan(id(pooltemperature).state)) {
           it.printf(250, 175, id(small),           TextAlign::TOP_RIGHT, "%.2f °C", id(pooltemperature).state);
+          it.printf(20, 220, id(tiny),           TextAlign::TOP_LEFT, "%s", id(pooltemperature_gain).state.c_str());
         } else {
           it.printf(250, 175, id(small),           TextAlign::TOP_RIGHT, "-");
         }
 
-        //Solar Data
-        it.printf(20,  220, id(font_mdi_medium), TextAlign::TOP_LEFT,  mdi_icon["home-lightning-bolt"].c_str());
-        it.printf(250, 220, id(small),           TextAlign::TOP_RIGHT, "%.0f W", id(power_comsumption).state);
+        //Power Data
+        it.printf(20,  265, id(font_mdi_medium), TextAlign::TOP_LEFT,  mdi_icon["home-lightning-bolt"].c_str());
+        it.printf(250, 265, id(small),           TextAlign::TOP_RIGHT, "%.0f W", id(power_comsumption).state);
 
-        it.printf(20,  265, id(font_mdi_medium), TextAlign::TOP_LEFT,  mdi_icon["solar-power-variant"].c_str());
+        //Solar Data
+        it.printf(20,  310, id(font_mdi_medium), TextAlign::TOP_LEFT,  mdi_icon["solar-power-variant"].c_str());
         if (!isnan(id(solar_power).state)) {
-          it.printf(250, 265, id(small),           TextAlign::TOP_RIGHT, "%.0f W", id(solar_power).state);
+          it.printf(250, 310, id(small),           TextAlign::TOP_RIGHT, "%.0f W", id(solar_power).state);
         } else {
-          it.printf(250, 265, id(small),           TextAlign::TOP_RIGHT, "-");
+          it.printf(250, 310, id(small),           TextAlign::TOP_RIGHT, "-");
         }
 
-        it.printf(20,  306, id(font_mdi_medium), TextAlign::TOP_LEFT,  mdi_icon["cash-multiple"].c_str());
-        it.printf(250, 310, id(small),           TextAlign::TOP_RIGHT, "%.2f €", id(gesamtersparnis).state);
+        //it.printf(20,  306, id(font_mdi_medium), TextAlign::TOP_LEFT,  mdi_icon["cash-multiple"].c_str());
+        //it.printf(250, 310, id(small),           TextAlign::TOP_RIGHT, "%.2f €", id(gesamtersparnis).state);
 
         //Energy Graph
         it.graph(20, 360, id(energy_graph));
