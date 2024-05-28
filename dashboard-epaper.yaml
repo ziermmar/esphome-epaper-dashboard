@@ -63,6 +63,10 @@ sensor:
     id: wifi_signal_db
     update_interval: 60s
     entity_category: "diagnostic"
+    filters:
+    - sliding_window_moving_average:
+        window_size: 15
+        send_every: 15
 
   - platform: copy # Reports the WiFi signal strength in %
     source_id: wifi_signal_db
@@ -106,7 +110,6 @@ sensor:
     on_value:
       then:
         - lambda: 'id(data_updated) = true;'
-
 
   - platform: homeassistant
     id: temp_now
