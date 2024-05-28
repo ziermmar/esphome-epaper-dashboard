@@ -58,6 +58,21 @@ time:
           - script.execute: update_screen
 
 sensor:
+  - platform: wifi_signal # Reports the WiFi signal strength/RSSI in dB
+    name: "WiFi Signal dB"
+    id: wifi_signal_db
+    update_interval: 60s
+    entity_category: "diagnostic"
+
+  - platform: copy # Reports the WiFi signal strength in %
+    source_id: wifi_signal_db
+    name: "WiFi Signal Percent"
+    filters:
+      - lambda: return min(max(2 * (x + 100.0), 0.0), 100.0);
+    unit_of_measurement: "Signal %"
+    entity_category: "diagnostic"
+    device_class: ""
+
   - platform: template
     name: "Display Last Update"
     device_class: timestamp
@@ -125,6 +140,13 @@ sensor:
     entity_id: sensor.temperature_forecast_d3
 
 text_sensor:
+  - platform: homeassistant
+    id: pooltemperature_gain
+    entity_id: sensor.pool_temperature_gain_since_yesterday_text
+    on_value:
+      then:
+        - lambda: 'id(data_updated) = true;'
+
   - platform: homeassistant
     id: weather_now
     entity_id: sensor.weathercurrent
@@ -207,7 +229,7 @@ font:
       'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
       'T', 'U', 'V', 'W', 'X', 'Y', 'Z', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
       'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
-      'u', 'v', 'w', 'x', 'y', 'z','å', 'Ä', 'ä', 'Ö', 'ö', 'Ü', 'ü', '/', '€']
+      'u', 'v', 'w', 'x', 'y', 'z','å', 'Ä', 'ä', 'Ö', 'ö', 'Ü', 'ü', '/', '€', '↗', '↘']
   - file: "gfonts://Inter@900"
     id: medium
     size: 60
