@@ -55,7 +55,10 @@ jobs:
         id: esphome-build
         with:
           yaml-file: ${{ matrix.file }}
-          version: ${{ inputs.esphome_version }}
+          version: ${{ inputs.esphome-version }}
+          complete-manifest: true
+          release-summary: ${{ inputs.release-summary }}
+          release-url: ${{ inputs.release-url }}
       - run: |
           mkdir output
           mv "${{ steps.esphome-build.outputs.name }}" output/
