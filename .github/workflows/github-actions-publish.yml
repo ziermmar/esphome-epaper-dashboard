@@ -54,7 +54,7 @@ jobs:
       - uses: esphome/build-action@v7.0.0
         id: esphome-build
         with:
-          configuration: ${{ matrix.file }}
+          yaml-file: ${{ matrix.file }}
           version: ${{ inputs.esphome_version }}
       - run: |
           mkdir output
