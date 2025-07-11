@@ -1,6 +1,8 @@
 # ESPhome E-Ink Dashboard
 
-[![Build and Publish ESPHome firmware](https://github.com/ziermmar/esphome-epaper-dashboard/actions/workflows/push.yml/badge.svg)](https://github.com/ziermmar/esphome-epaper-dashboard/actions/workflows/push.yml)
+[![Build and Publish ESPHome firmware](https://github.com/ziermmar/esphome-epaper-dashboard/actions/workflows/on_push.yml/badge.svg)](https://github.com/ziermmar/esphome-epaper-dashboard/actions/workflows/on_push.yml)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/ziermmar/esphome-epaper-dashboard/badge)](https://scorecard.dev/viewer/?uri=github.com/ziermmar/esphome-epaper-dashboard)
+
 
 ![Screen capture of an e-ink display](./images/screen-capture.jpeg)
 
