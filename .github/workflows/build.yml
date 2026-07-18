@@ -86,7 +86,7 @@ jobs:
           curl -o fonts/materialdesignicons-webfont.ttf "https://raw.githubusercontent.com/Templarian/MaterialDesign-Webfont/master/fonts/materialdesignicons-webfont.ttf"
           echo "${{secrets.ESPHOME_SECRETS_YAML}}" >> secrets.yaml
       - name: Build Firmware
-        uses: esphome/build-action@v7.0.0
+        uses: esphome/build-action@v8.0.0
         id: esphome-build
         with:
           yaml-file: ${{ matrix.file }}
