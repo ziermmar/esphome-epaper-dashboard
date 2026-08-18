@@ -5,6 +5,8 @@
 
 ![Screen capture of an e-ink display](./images/screen-capture.jpeg)
 
+An ESPHome firmware for a Waveshare 7.5" e-ink display driven by an ESP32. It connects to Home Assistant via the native API and renders a daily-glanceable dashboard: current weather with translated state and MDI icons, indoor and outdoor temperatures, a German word clock, and other sensor data — all refreshing automatically whenever values change. The device fits inside an IKEA Ribba picture frame and draws minimal power thanks to the e-ink panel.
+
 ## Features
 
 * ESPHome dashboard on Waveshare 7.5" E-Paper display
