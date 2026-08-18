@@ -2,9 +2,8 @@ name: CI
 
 # Workflow chain:
 #   ci.yml (this file) — entry point for push/PR events
-#     └── build.yml   — reusable: compile firmware, deploy to gh-pages, create GitHub Release on tags
-#           └── gh-pages branch push
-#                 └── pages-build-deployment (GitHub built-in) — serves the web installer
+#     └── gh-pages branch push
+#           └── pages-build-deployment (GitHub built-in) — serves the web installer
 #
 # deploy.yml — manual shortcut to redeploy the web installer without rebuilding
 
@@ -18,19 +17,126 @@ on:
     branches:
       - main
 
-permissions:
-  contents: write
-  actions: read
-  security-events: read
-  id-token: write
-  attestations: write
+permissions: read-all
+
+env:
+  FILES: dashboard-epaper.yaml
 
 jobs:
+  prepare:
+    name: Prepare
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      files: ${{ steps.files-array.outputs.files }}
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - name: Split files input into JSON array
+        id: files-array
+        run: |
+          files=$(echo "${{ env.FILES }}" | jq -RcSn '[inputs | select(length>0)]')
+          echo files=$files >> $GITHUB_OUTPUT
+
+      - name: Determine version
+        id: version
+        run: |
+          if [[ "${{ github.ref }}" == refs/tags/v* ]]; then
+            version=${{ github.ref_name }}
+          else
+            version=dev-$(date +'%Y%m%d-%H%M')
+          fi
+          echo version=$version >> $GITHUB_OUTPUT
+
   build:
-    uses: ziermmar/esphome-epaper-dashboard/.github/workflows/build.yml@main
-    with:
-      files: dashboard-epaper.yaml
-      release-version: ${{ startsWith(github.ref, 'refs/tags/v') && github.ref_name || '' }}
-      publish-pages: ${{ github.event_name == 'push' }}
-      create-release: ${{ startsWith(github.ref, 'refs/tags/v') }}
-    secrets: inherit
+    name: ${{ matrix.file }}
+    needs: [prepare]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        file: ${{ fromJson(needs.prepare.outputs.files) }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Inject fonts, secrets and version
+        run: |
+          curl -fsSL -o fonts/materialdesignicons-webfont.ttf \
+            "https://raw.githubusercontent.com/Templarian/MaterialDesign-Webfont/master/fonts/materialdesignicons-webfont.ttf"
+          echo "${{ secrets.ESPHOME_SECRETS_YAML }}" >> secrets.yaml
+          sed -i "s/version: dev/version: ${{ needs.prepare.outputs.version }}/g" ${{ matrix.file }}
+
+      - name: Build firmware
+        uses: esphome/build-action@76cd6898550762b189215bbe6e50e29080fd2c33 # v7.0.0
+        id: esphome-build
+        with:
+          yaml-file: ${{ matrix.file }}
+          complete-manifest: true
+
+      - name: Upload firmware artifact
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: ${{ steps.esphome-build.outputs.name }}
+          path: ${{ steps.esphome-build.outputs.name }}
+          retention-days: 7
+
+  publish-pages:
+    name: Deploy to GitHub Pages
+    needs: [prepare, build]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: true
+
+      - name: Download firmware artifacts
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          path: output
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@fa24774553152dd7873cd16ebd8d959b010c5445 # v4.9.0
+        with:
+          branch: gh-pages
+          folder: output
+          clean: true
+
+  create-release:
+    name: Create GitHub Release
+    needs: [prepare, build]
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: write
+      id-token: write
+      attestations: write
+    steps:
+      - name: Download firmware artifacts
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          path: artifacts
+
+      - name: Attest firmware binaries
+        uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4.2.2
+        with:
+          subject-path: |
+            artifacts/**/*.factory.bin
+            artifacts/**/*.ota.bin
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65 # v2.6.2
+        with:
+          tag_name: ${{ needs.prepare.outputs.version }}
+          name: ${{ needs.prepare.outputs.version }}
+          generate_release_notes: true
+          files: |
+            artifacts/**/*.factory.bin
+            artifacts/**/*.ota.bin
