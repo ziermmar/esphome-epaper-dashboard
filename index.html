@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ESPHome E-Ink Dashboard — Web Installer</title>
+  <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
+  <style>
+    body { font-family: sans-serif; max-width: 600px; margin: 4rem auto; padding: 0 1rem; }
+    h1 { font-size: 1.4rem; }
+    p { color: #555; }
+    esp-web-install-button { margin-top: 1.5rem; display: block; }
+  </style>
+</head>
+<body>
+  <h1>ESPHome E-Ink Dashboard</h1>
+  <p>Flash the prebuilt firmware directly from your browser. Connect your ESP32 via USB, then click the button below.</p>
+  <p><strong>Note:</strong> Requires a Chromium-based browser (Chrome, Edge) with Web Serial support.</p>
+  <esp-web-install-button manifest="manifest.json"></esp-web-install-button>
+  <p><small>After flashing, configure your Wi-Fi and Home Assistant connection via the ESPHome device portal.</small></p>
+</body>
+</html>
