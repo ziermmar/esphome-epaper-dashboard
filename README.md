@@ -2,6 +2,7 @@
 
 [![CI](https://github.com/ziermmar/esphome-epaper-dashboard/actions/workflows/ci.yml/badge.svg)](https://github.com/ziermmar/esphome-epaper-dashboard/actions/workflows/ci.yml)
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/ziermmar/esphome-epaper-dashboard/badge)](https://scorecard.dev/viewer/?uri=github.com/ziermmar/esphome-epaper-dashboard)
+[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/10893/badge)](https://www.bestpractices.dev/projects/10893)
 
 ![Screen capture of an e-ink display](./images/screen-capture.jpeg)
 
