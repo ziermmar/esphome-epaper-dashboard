@@ -1,14 +1,18 @@
 {
-  "name": "ESPHome",
-  "version": "",
+  "name": "ziermmar.epaper-dashboard",
+  "version": "dev-20260818-1343",
   "home_assistant_domain": "esphome",
-  "new_install_skip_erase": false,
+  "new_install_prompt_erase": false,
   "builds": [
     {
       "chipFamily": "ESP32",
+      "ota": {
+        "path": "dashboard-epaper-esp32.ota.bin",
+        "md5": "95f98bf5f63ffbe3e460ab7d8b337c4c"
+      },
       "parts": [
         {
-          "path": "dashboard-epaper-esp32/dashboard-epaper-esp32.bin",
+          "path": "dashboard-epaper-esp32.factory.bin",
           "offset": 0
         }
       ]
