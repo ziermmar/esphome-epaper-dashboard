@@ -8,7 +8,8 @@ on:
     branches:
       - main
 
-permissions: read-all
+permissions:
+  contents: write  # publish job deploys to GitHub Pages
 
 jobs:
   call-workflow-passing-data:
