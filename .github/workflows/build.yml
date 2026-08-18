@@ -1,6 +1,9 @@
 name: ESPHome firmware build (reusable)
 
-permissions: read-all
+permissions:
+  contents: write
+  actions: read
+  id-token: none
 
 on:
   workflow_call:
