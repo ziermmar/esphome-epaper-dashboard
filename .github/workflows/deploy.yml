@@ -1,10 +1,16 @@
 name: Deploy to web installer
 
 on:
+  workflow_call:
+    inputs:
+      run-id:
+        description: "Run ID of the build to deploy"
+        required: true
+        type: string
   workflow_dispatch:
     inputs:
       run-id:
-        description: "Build run ID to deploy (leave empty to use the latest successful build on main)"
+        description: "Build run ID to deploy (leave empty to use the latest successful CI run on main)"
         required: false
         type: string
         default: ""
@@ -30,12 +36,12 @@ jobs:
         run: |
           if [ -n "${{ inputs.run-id }}" ]; then
             run_id="${{ inputs.run-id }}"
-            echo "Using specified run ID: $run_id"
+            echo "Using run ID: $run_id"
           else
             run_id=$(gh api \
               "repos/${{ github.repository }}/actions/runs?branch=main&per_page=20" \
-              --jq '[.workflow_runs[] | select(.name=="Build and Publish ESPHome firmware" and .conclusion=="success")] | first | .id')
-            echo "Using latest successful build run ID: $run_id"
+              --jq '[.workflow_runs[] | select(.name=="CI" and .conclusion=="success")] | first | .id')
+            echo "Using latest successful CI run ID: $run_id"
           fi
           echo "run-id=$run_id" >> $GITHUB_OUTPUT
 
