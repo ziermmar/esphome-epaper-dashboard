@@ -1,5 +1,7 @@
 name: ESPHome firmware build (reusable)
 
+permissions: read-all
+
 on:
   workflow_call:
     inputs:
