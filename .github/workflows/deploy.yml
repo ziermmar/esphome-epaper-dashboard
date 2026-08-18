@@ -1,0 +1,54 @@
+name: Deploy firmware to GitHub Pages
+
+on:
+  workflow_dispatch:
+    inputs:
+      run-id:
+        description: "Build run ID to deploy (leave empty to use the latest successful build on main)"
+        required: false
+        type: string
+        default: ""
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  deploy:
+    name: Deploy to GitHub Pages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: true
+
+      - name: Resolve build run ID
+        id: run
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -n "${{ inputs.run-id }}" ]; then
+            run_id="${{ inputs.run-id }}"
+            echo "Using specified run ID: $run_id"
+          else
+            run_id=$(gh api \
+              "repos/${{ github.repository }}/actions/runs?branch=main&per_page=20" \
+              --jq '[.workflow_runs[] | select(.name=="Build and Publish ESPHome firmware" and .conclusion=="success")] | first | .id')
+            echo "Using latest successful build run ID: $run_id"
+          fi
+          echo "run-id=$run_id" >> $GITHUB_OUTPUT
+
+      - name: Download firmware artifact
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          run-id: ${{ steps.run.outputs.run-id }}
+          github-token: ${{ github.token }}
+          path: output
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@fa24774553152dd7873cd16ebd8d959b010c5445 # v4.9.0
+        with:
+          branch: gh-pages
+          folder: output
+          clean: true
