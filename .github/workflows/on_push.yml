@@ -8,6 +8,8 @@ on:
     branches:
       - main
 
+permissions: read-all
+
 jobs:
   call-workflow-passing-data:
     uses: ziermmar/esphome-epaper-dashboard/.github/workflows/build.yml@main
