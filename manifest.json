@@ -1,6 +1,6 @@
 {
   "name": "ziermmar.epaper-dashboard",
-  "version": "dev-20260818-1356",
+  "version": "dev-20260818-1400",
   "home_assistant_domain": "esphome",
   "new_install_prompt_erase": false,
   "builds": [
@@ -8,7 +8,7 @@
       "chipFamily": "ESP32",
       "ota": {
         "path": "dashboard-epaper-esp32.ota.bin",
-        "md5": "64ca8dbd9f3d50eccd3a3dbbb5e941d8"
+        "md5": "f8a68f45a2b6a6b48e0fb112dc0d6d2a"
       },
       "parts": [
         {
