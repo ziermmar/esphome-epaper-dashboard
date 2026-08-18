@@ -1,4 +1,10 @@
-name: Build and Publish ESPHome firmware
+name: CI
+
+# Workflow chain:
+#   ci.yml (this file) — entry point for push/PR events
+#     └── build.yml   — reusable: compile firmware, deploy to gh-pages, create releases
+#           └── gh-pages branch push
+#                 └── pages-build-deployment (GitHub built-in) — serves the web installer
 
 on:
   push:

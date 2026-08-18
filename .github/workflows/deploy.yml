@@ -1,4 +1,4 @@
-name: Deploy firmware to GitHub Pages
+name: Deploy to web installer
 
 on:
   workflow_dispatch:
