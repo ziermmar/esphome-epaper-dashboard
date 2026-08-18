@@ -18,7 +18,11 @@ on:
     branches:
       - main
 
-permissions: read-all
+permissions:
+  contents: write
+  actions: read
+  security-events: read
+  id-token: none
 
 jobs:
   build:
