@@ -1,16 +1,10 @@
 name: Deploy to web installer
 
 on:
-  workflow_call:
-    inputs:
-      run-id:
-        description: "Run ID of the build to deploy"
-        required: true
-        type: string
   workflow_dispatch:
     inputs:
       run-id:
-        description: "Build run ID to deploy (leave empty to use the latest successful CI run on main)"
+        description: "CI run ID to deploy (leave empty to use the latest successful CI run on main)"
         required: false
         type: string
         default: ""
