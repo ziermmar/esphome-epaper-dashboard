@@ -2,11 +2,11 @@ name: CI
 
 # Workflow chain:
 #   ci.yml (this file) — entry point for push/PR events
-#     ├── build.yml   — compile firmware, upload artifact, create GitHub Release on tags
-#     └── deploy.yml  — download artifact, push to gh-pages (on push to main/tags only)
-#           └── pages-build-deployment (GitHub built-in) — serves the web installer
+#     └── build.yml   — reusable: compile firmware, deploy to gh-pages, create GitHub Release on tags
+#           └── gh-pages branch push
+#                 └── pages-build-deployment (GitHub built-in) — serves the web installer
 #
-# deploy.yml can also be triggered manually to redeploy without rebuilding.
+# deploy.yml — manual shortcut to redeploy the web installer without rebuilding
 
 on:
   push:
@@ -20,7 +20,6 @@ on:
 
 permissions:
   contents: write
-  actions: read
 
 jobs:
   build:
@@ -28,17 +27,8 @@ jobs:
     with:
       files: dashboard-epaper.yaml
       release-version: ${{ startsWith(github.ref, 'refs/tags/v') && github.ref_name || '' }}
+      publish-pages: ${{ github.event_name == 'push' }}
       create-release: ${{ startsWith(github.ref, 'refs/tags/v') }}
     secrets: inherit
     permissions:
       contents: write
-
-  deploy:
-    needs: build
-    if: github.event_name == 'push'
-    uses: ziermmar/esphome-epaper-dashboard/.github/workflows/deploy.yml@main
-    with:
-      run-id: ${{ github.run_id }}
-    permissions:
-      contents: write
-      actions: read

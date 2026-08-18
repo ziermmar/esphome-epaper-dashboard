@@ -17,6 +17,11 @@ on:
         required: false
         type: string
         default: latest
+      publish-pages:
+        description: Deploy built firmware to GitHub Pages
+        required: false
+        type: boolean
+        default: false
       create-release:
         description: Create a GitHub Release and attach firmware binaries
         required: false
@@ -90,6 +95,31 @@ jobs:
           name: ${{ steps.esphome-build.outputs.name }}
           path: ${{ steps.esphome-build.outputs.name }}
           retention-days: 7
+
+  publish-pages:
+    name: Deploy to GitHub Pages
+    needs: [prepare, build]
+    runs-on: ubuntu-latest
+    if: inputs.publish-pages
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: true
+
+      - name: Download firmware artifacts
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          path: output
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@fa24774553152dd7873cd16ebd8d959b010c5445 # v4.9.0
+        with:
+          branch: gh-pages
+          folder: output
+          clean: true
 
   create-release:
     name: Create GitHub Release
