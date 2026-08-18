@@ -1,3 +1,5 @@
+name: ESPHome firmware build (reusable)
+
 on:
   workflow_call:
     inputs:
