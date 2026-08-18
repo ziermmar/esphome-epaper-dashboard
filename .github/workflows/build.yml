@@ -3,7 +3,8 @@ name: ESPHome firmware build (reusable)
 permissions:
   contents: write
   actions: read
-  id-token: none
+  id-token: write
+  attestations: write
 
 on:
   workflow_call:
@@ -133,11 +134,20 @@ jobs:
     if: inputs.create-release
     permissions:
       contents: write
+      id-token: write
+      attestations: write
     steps:
       - name: Download firmware artifacts
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           path: artifacts
+
+      - name: Attest firmware binaries
+        uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4.2.2
+        with:
+          subject-path: |
+            artifacts/**/*.factory.bin
+            artifacts/**/*.ota.bin
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65 # v2.6.2

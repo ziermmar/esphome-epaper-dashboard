@@ -22,7 +22,8 @@ permissions:
   contents: write
   actions: read
   security-events: read
-  id-token: none
+  id-token: write
+  attestations: write
 
 jobs:
   build:
