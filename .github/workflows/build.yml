@@ -72,18 +72,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - name: Inject fonts and secrets
+      - name: Inject fonts, secrets and version
         run: |
           curl -fsSL -o fonts/materialdesignicons-webfont.ttf \
             "https://raw.githubusercontent.com/Templarian/MaterialDesign-Webfont/master/fonts/materialdesignicons-webfont.ttf"
           echo "${{ secrets.ESPHOME_SECRETS_YAML }}" >> secrets.yaml
+          sed -i "s/version: dev/version: ${{ needs.prepare.outputs.version }}/g" ${{ matrix.file }}
 
       - name: Build firmware
         uses: esphome/build-action@76cd6898550762b189215bbe6e50e29080fd2c33 # v7.0.0
         id: esphome-build
         with:
           yaml-file: ${{ matrix.file }}
-          version: ${{ needs.prepare.outputs.version }}
+          version: ${{ inputs.esphome-version }}
           complete-manifest: true
 
       - name: Upload firmware artifact

@@ -1,6 +1,9 @@
 esphome:
   name: dashboard-epaper
   friendly_name: E-Paper Dashboard
+  project:
+    name: ziermmar.epaper-dashboard
+    version: dev
   includes:
     - includes/translate.h
     - includes/mdi_icon.h
