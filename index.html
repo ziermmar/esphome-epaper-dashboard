@@ -6,17 +6,171 @@
   <title>ESPHome E-Ink Dashboard — Web Installer</title>
   <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
   <style>
-    body { font-family: sans-serif; max-width: 600px; margin: 4rem auto; padding: 0 1rem; }
-    h1 { font-size: 1.4rem; }
-    p { color: #555; }
-    esp-web-install-button { margin-top: 1.5rem; display: block; }
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f5f5f5;
+      color: #222;
+      margin: 0;
+      padding: 2rem 1rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      max-width: 560px;
+      width: 100%;
+      padding: 2rem;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .header svg {
+      flex-shrink: 0;
+    }
+
+    h1 {
+      font-size: 1.3rem;
+      margin: 0;
+      font-weight: 600;
+    }
+
+    .subtitle {
+      color: #666;
+      font-size: 0.9rem;
+      margin: 0 0 1.5rem;
+    }
+
+    .steps {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1.5rem;
+      counter-reset: steps;
+    }
+
+    .steps li {
+      counter-increment: steps;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.5rem 0;
+      font-size: 0.9rem;
+      color: #444;
+    }
+
+    .steps li::before {
+      content: counter(steps);
+      background: #1f6feb;
+      color: #fff;
+      border-radius: 50%;
+      width: 1.4rem;
+      height: 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    esp-web-install-button {
+      display: block;
+      margin: 1.5rem 0;
+    }
+
+    .notice {
+      background: #fff8e1;
+      border: 1px solid #ffe082;
+      border-radius: 6px;
+      padding: 0.6rem 0.9rem;
+      font-size: 0.82rem;
+      color: #5a4a00;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer {
+      margin-top: 1.5rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.82rem;
+      color: #888;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .footer a {
+      color: #1f6feb;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .footer a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
-  <h1>ESPHome E-Ink Dashboard</h1>
-  <p>Flash the prebuilt firmware directly from your browser. Connect your ESP32 via USB, then click the button below.</p>
-  <p><strong>Note:</strong> Requires a Chromium-based browser (Chrome, Edge) with Web Serial support.</p>
-  <esp-web-install-button manifest="manifest.json"></esp-web-install-button>
-  <p><small>After flashing, configure your Wi-Fi and Home Assistant connection via the ESPHome device portal.</small></p>
+  <div class="card">
+    <div class="header">
+      <!-- E-Ink display icon -->
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="36" height="36" rx="8" fill="#1f6feb"/>
+        <rect x="6" y="9" width="24" height="16" rx="2" stroke="white" stroke-width="1.8" fill="none"/>
+        <rect x="9" y="12" width="18" height="2" rx="1" fill="white"/>
+        <rect x="9" y="16" width="12" height="2" rx="1" fill="white"/>
+        <rect x="9" y="20" width="15" height="2" rx="1" fill="white"/>
+        <rect x="14" y="25" width="8" height="2" rx="1" fill="white"/>
+      </svg>
+      <h1>ESPHome E-Ink Dashboard</h1>
+    </div>
+
+    <p class="subtitle">
+      Flash prebuilt firmware directly from your browser — no toolchain required.
+    </p>
+
+    <ol class="steps">
+      <li>Connect your ESP32 board via USB</li>
+      <li>Click <strong>Install</strong> below and select the serial port</li>
+      <li>After flashing, configure Wi-Fi and Home Assistant via the ESPHome device portal</li>
+    </ol>
+
+    <div class="notice">
+      Requires a Chromium-based browser (Chrome or Edge) with Web Serial support. Firefox is not supported.
+    </div>
+
+    <esp-web-install-button manifest="dashboard-epaper-esp32/manifest.json"></esp-web-install-button>
+
+    <div class="footer">
+      <span>Firmware built from <code>main</code></span>
+      <a href="https://github.com/ziermmar/esphome-epaper-dashboard" target="_blank" rel="noopener">
+        <!-- GitHub icon -->
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
+            0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52
+            -.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2
+            -3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64
+            -.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12
+            .51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01
+            1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+        </svg>
+        View on GitHub
+      </a>
+    </div>
+  </div>
 </body>
 </html>
