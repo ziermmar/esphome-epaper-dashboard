@@ -7,6 +7,10 @@
     {
       "matchManagers": ["github-actions"],
       "labels": ["github_actions", "dependencies"]
+    },
+    {
+      "matchManagers": ["pip_requirements"],
+      "labels": ["python", "dependencies"]
     }
   ]
 }
