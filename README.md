@@ -88,6 +88,20 @@ home_assistant/
 fonts/                       # Font files (gitignored, download manually)
 ```
 
+## Releasing a new version
+
+1. Review changes since the last release:
+   ```shell
+   git log $(git describe --tags --abbrev=0)..HEAD --oneline
+   ```
+2. Tag and push:
+   ```shell
+   git tag v1.2.3
+   git push origin v1.2.3
+   ```
+
+CI will build the firmware, create a GitHub Release with auto-generated notes, and update the web installer automatically.
+
 ## Acknowledgements
 
 * [Material Design Icons](https://pictogrammers.com/library/mdi/) — icon lookup and Unicode code points
