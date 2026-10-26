@@ -6,11 +6,13 @@
   "packageRules": [
     {
       "matchManagers": ["github-actions"],
-      "labels": ["github_actions", "dependencies"]
+      "labels": ["github_actions", "dependencies"],
+      "automerge": true
     },
     {
       "matchManagers": ["pip_requirements"],
-      "labels": ["python", "dependencies"]
+      "labels": ["python", "dependencies"],
+      "automerge": true
     }
   ]
 }
