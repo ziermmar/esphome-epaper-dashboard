@@ -1,6 +1,6 @@
 {
   "name": "ziermmar.epaper-dashboard",
-  "version": "dev-20261026-1320",
+  "version": "dev-20261026-1324",
   "home_assistant_domain": "esphome",
   "new_install_prompt_erase": false,
   "builds": [
@@ -8,15 +8,15 @@
       "chipFamily": "ESP32",
       "ota": {
         "path": "dashboard-epaper-esp32.ota.bin",
-        "md5": "f73a11897b0dc8d8d27d5b1d06f681a8",
-        "sha256": "1fdf1c223b24a5dd0868a1636ab4ffd13fbe32b1cef4b311889bc3b01833afd5"
+        "md5": "0cde51cfba1521f9262c409dd6f5e2fc",
+        "sha256": "5ec5571938e06abe94e2e8416b1c54c414e8165832c347955ddaaafd06bb98fc"
       },
       "parts": [
         {
           "path": "dashboard-epaper-esp32.factory.bin",
           "offset": 0,
-          "md5": "2e69f51ae2b624d95377c84137ba3ac1",
-          "sha256": "f93423e5c6852ddd57f5db1247ca21b21dd5fd8bbf4c12e622c7d687e346a822"
+          "md5": "7caece9234cdf7c55287b585c5e35f9d",
+          "sha256": "d04635684c184588ff6e312a419df095b5744c23dc07859bbb58d03ee8c4bfaf"
         }
       ]
     }
