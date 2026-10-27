@@ -1,0 +1,58 @@
+name: Auto Release
+
+on:
+  schedule:
+    - cron: '0 8 * * *'
+  workflow_dispatch:
+
+permissions: read-all
+
+jobs:
+  check-and-release:
+    name: Release on dependency updates
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Check for non-GHA dependency updates since last release
+        id: check
+        run: |
+          last_tag=$(git tag --sort=-v:refname | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | head -1)
+
+          if [ -z "$last_tag" ]; then
+            new_tag="v0.1.0"
+            range="HEAD"
+          else
+            version="${last_tag#v}"
+            major=$(echo "$version" | cut -d. -f1)
+            minor=$(echo "$version" | cut -d. -f2)
+            patch=$(echo "$version" | cut -d. -f3)
+            new_tag="v${major}.${minor}.$((patch + 1))"
+            range="${last_tag}..HEAD"
+          fi
+
+          dep_updates=$(git log "$range" --oneline --grep="update dependency" || true)
+
+          if [ -n "$dep_updates" ]; then
+            echo "Found dependency updates since ${last_tag:-beginning}:"
+            echo "$dep_updates"
+            echo "new-tag=$new_tag" >> $GITHUB_OUTPUT
+            echo "should-release=true" >> $GITHUB_OUTPUT
+          else
+            echo "No non-GHA dependency updates since ${last_tag:-beginning}, skipping release"
+            echo "should-release=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create and push tag
+        if: steps.check.outputs.should-release == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag "${{ steps.check.outputs.new-tag }}"
+          git push origin "${{ steps.check.outputs.new-tag }}"
+          echo "Tagged ${{ steps.check.outputs.new-tag }}"
